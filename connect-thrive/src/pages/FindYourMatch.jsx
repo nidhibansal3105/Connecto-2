@@ -3,24 +3,29 @@ import { useState, useEffect } from "react";
 import MatchCard from "../components/FindMatch/MatchCard";
 import MatchModal from "../components/FindMatch/MatchModal";
 import FindMatchButton from "../components/FindMatch/FindMatchButton";
-import { FilterChips, TopMatchesSidebar, HowItWorks, LoadingOverlay } from "../components/FindMatch/OtherComponents";
+import {
+  FilterChips,
+  TopMatchesSidebar,
+  HowItWorks,
+  LoadingOverlay,
+} from "../components/FindMatch/OtherComponents";
 import "../findmatch.css";
 
-const API = "http://localhost:5000/api/users";
+const API = "https://connecto-2-u3a6.vercel.app/api/users";
 
 function getToken() {
   return localStorage.getItem("token");
 }
 
 export default function FindYourMatch() {
-  const [matches, setMatches]             = useState([]);
-  const [communities, setCommunities]     = useState(["All"]);
-  const [connected, setConnected]         = useState({});
-  const [activeFilter, setActiveFilter]   = useState("All");
+  const [matches, setMatches] = useState([]);
+  const [communities, setCommunities] = useState(["All"]);
+  const [connected, setConnected] = useState({});
+  const [activeFilter, setActiveFilter] = useState("All");
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [loading, setLoading]             = useState(false);
-  const [searched, setSearched]           = useState(false);
-  const [error, setError]                 = useState("");
+  const [loading, setLoading] = useState(false);
+  const [searched, setSearched] = useState(false);
+  const [error, setError] = useState("");
 
   // ── Fetch matches ──────────────────────────────────────────
   const handleFindMatch = async () => {
@@ -81,8 +86,10 @@ export default function FindYourMatch() {
   const filteredMatches =
     activeFilter === "All"
       ? matches
-      : matches.filter((s) =>
-          Array.isArray(s.communities) && s.communities.includes(activeFilter)
+      : matches.filter(
+          (s) =>
+            Array.isArray(s.communities) &&
+            s.communities.includes(activeFilter),
         );
 
   return (
@@ -108,7 +115,9 @@ export default function FindYourMatch() {
       <main className="fm-main">
         <div className="fm-match-header">
           <div>
-            <h2>Your <span className="fm-teal">Perfect Matches</span> ✦</h2>
+            <h2>
+              Your <span className="fm-teal">Perfect Matches</span> ✦
+            </h2>
             <p>
               {searched
                 ? `Found ${matches.length} students across your communities`
@@ -125,12 +134,16 @@ export default function FindYourMatch() {
         </div>
 
         {error && (
-          <div style={{
-            background: "rgba(239,68,68,0.1)",
-            border: "1px solid rgba(239,68,68,0.3)",
-            borderRadius: "10px", padding: "1rem",
-            color: "#f87171", fontSize: "0.875rem"
-          }}>
+          <div
+            style={{
+              background: "rgba(239,68,68,0.1)",
+              border: "1px solid rgba(239,68,68,0.3)",
+              borderRadius: "10px",
+              padding: "1rem",
+              color: "#f87171",
+              fontSize: "0.875rem",
+            }}
+          >
             ⚠️ {error}
           </div>
         )}
@@ -166,7 +179,10 @@ export default function FindYourMatch() {
           <div className="fm-empty-state">
             <div className="fm-empty-icon">✦</div>
             <h3>Find students who share your passion</h3>
-            <p>Click "Find Your Match" to discover students across your communities</p>
+            <p>
+              Click "Find Your Match" to discover students across your
+              communities
+            </p>
           </div>
         )}
       </main>
@@ -180,7 +196,10 @@ export default function FindYourMatch() {
         <div className="fm-card fm-wellness-card">
           <div className="fm-wellness-icon">💙</div>
           <strong>You're not alone</strong>
-          <p>Campus life can be overwhelming. Connecto helps you find your people — one connection at a time.</p>
+          <p>
+            Campus life can be overwhelming. Connecto helps you find your people
+            — one connection at a time.
+          </p>
         </div>
       </aside>
     </div>
@@ -194,7 +213,7 @@ function CommunitiesSidebar() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
-    fetch("http://localhost:5000/api/users/communities", {
+    fetch("https://connecto-2-u3a6.vercel.app/api/users/communities", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
@@ -206,8 +225,11 @@ function CommunitiesSidebar() {
   }, []);
 
   const ICON_MAP = {
-    travel: "🌍", dsa: "💻", "mental-wellness": "🧘",
-    startup: "🚀", gym: "💪",
+    travel: "🌍",
+    dsa: "💻",
+    "mental-wellness": "🧘",
+    startup: "🚀",
+    gym: "💪",
   };
 
   return (

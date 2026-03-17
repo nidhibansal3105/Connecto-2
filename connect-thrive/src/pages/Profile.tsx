@@ -6,13 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import {useNavigate} from "react-router-dom";
-import { 
-  User, 
-  MapPin, 
-  Mail, 
-  Phone, 
-  Edit3, 
+import { useNavigate } from "react-router-dom";
+import {
+  User,
+  MapPin,
+  Mail,
+  Phone,
+  Edit3,
   Camera,
   Plane,
   Code,
@@ -21,11 +21,11 @@ import {
   Dumbbell,
   MessageCircle,
   Settings,
-  LogOut
+  LogOut,
 } from "lucide-react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import FindMatchButton from "../components/FindMatch/FindMatchButton"
+import FindMatchButton from "../components/FindMatch/FindMatchButton";
 
 const Profile = () => {
   const { toast } = useToast();
@@ -38,94 +38,125 @@ const Profile = () => {
     hometown: "",
     bio: "",
   });
-const [tempProfile, setTempProfile] = useState(profile);
+  const [tempProfile, setTempProfile] = useState(profile);
   // --- 1. Fetch Profile Data on Load ---
-useEffect(() => {
-  const fetchProfile = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/users/profile", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get(
+          "https://connecto-2-u3a6.vercel.app/api/users/profile",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
 
-      // Backend data ko state ke sath merge karein aur default values dein
-      const userData = {
-        name: res.data.username || "User",
-        email: res.data.email || "",
-        phone: res.data.phone || "",
-        hometown: res.data.hometown || "",
-        bio: res.data.bio || "",
-      };
+        // Backend data ko state ke sath merge karein aur default values dein
+        const userData = {
+          name: res.data.username || "User",
+          email: res.data.email || "",
+          phone: res.data.phone || "",
+          hometown: res.data.hometown || "",
+          bio: res.data.bio || "",
+        };
 
-      setProfile(userData);
-      setTempProfile(userData);
-    } catch (err) {
-      console.error("Failed to fetch profile", err);
-      
-    }
-  };
-  fetchProfile();
-}, []);
+        setProfile(userData);
+        setTempProfile(userData);
+      } catch (err) {
+        console.error("Failed to fetch profile", err);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   // --- 2. Save Data to Backend ---
-const handleSave = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    await axios.put(
-      "http://localhost:5000/api/users/profile/update",
-      tempProfile, // Buffer data bhejein
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        "https://connecto-2-u3a6.vercel.app/api/users/profile/update",
+        tempProfile, // Buffer data bhejein
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
 
-    setProfile(tempProfile); // Sirf success par main state update karein
+      setProfile(tempProfile); // Sirf success par main state update karein
+      setIsEditing(false);
+      toast({ title: "Success", description: "Profile updated!" });
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Update failed",
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    setTempProfile(profile); // Changes discard karke wapas original data set karein
     setIsEditing(false);
-    toast({ title: "Success", description: "Profile updated!" });
-  } catch (err) {
+  };
+  const handleLogout = () => {
+    // 1. Token hatao
+    localStorage.removeItem("token");
+
+    // 2. Success message (Optional)
     toast({
-      variant: "destructive",
-      title: "Error",
-      description: "Update failed",
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
     });
-  }
-};
 
-const handleCancel = () => {
-  setTempProfile(profile); // Changes discard karke wapas original data set karein
-  setIsEditing(false);
-};
-const handleLogout = () => {
-  // 1. Token hatao
-  localStorage.removeItem("token");
-  
-  // 2. Success message (Optional)
-  toast({
-    title: "Logged Out",
-    description: "You have been successfully logged out.",
-  });
+    // 3. Page ko redirect karo (Navigate use karke ya window reload se)
+    // Sabse aasan tarika window.location hai taki state fresh ho jaye
+    window.location.href = "/";
+  };
+  const communities = [
+    {
+      id: "travel",
+      name: "Travel",
+      icon: Plane,
+      color: "text-travel",
+      bgColor: "bg-travel/10",
+    },
+    {
+      id: "dsa",
+      name: "DSA",
+      icon: Code,
+      color: "text-dsa",
+      bgColor: "bg-dsa/10",
+    },
+    {
+      id: "mental-wellness",
+      name: "Wellness",
+      icon: Brain,
+      color: "text-wellness",
+      bgColor: "bg-wellness/10",
+    },
+    {
+      id: "startup",
+      name: "Startup",
+      icon: Rocket,
+      color: "text-startup",
+      bgColor: "bg-startup/10",
+    },
+    {
+      id: "gym",
+      name: "Gym",
+      icon: Dumbbell,
+      color: "text-gym",
+      bgColor: "bg-gym/10",
+    },
+  ];
 
-  // 3. Page ko redirect karo (Navigate use karke ya window reload se)
-  // Sabse aasan tarika window.location hai taki state fresh ho jaye
-  window.location.href = "/"; 
-};
-const communities = [
-  { id: "travel", name: "Travel", icon: Plane, color: "text-travel", bgColor: "bg-travel/10" },
-  { id: "dsa", name: "DSA", icon: Code, color: "text-dsa", bgColor: "bg-dsa/10" },
-  { id: "mental-wellness", name: "Wellness", icon: Brain, color: "text-wellness", bgColor: "bg-wellness/10" },
-  { id: "startup", name: "Startup", icon: Rocket, color: "text-startup", bgColor: "bg-startup/10" },
-  { id: "gym", name: "Gym", icon: Dumbbell, color: "text-gym", bgColor: "bg-gym/10" },
-];
-
-// const Profile = () => {
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [profile, setProfile] = useState({
-//     name: "Ananya Sharma",
-//     email: "ananya@nit.edu",
-//     phone: "+91 98765 43210",
-//     hometown: "Gurgaon",
-//     bio: "Computer Science student passionate about building products that make a difference. Love traveling, coding, and staying fit!",
-//     interests: ["Travel", "DSA", "Startup"],
-//   });
-
+  // const Profile = () => {
+  //   const [isEditing, setIsEditing] = useState(false);
+  //   const [profile, setProfile] = useState({
+  //     name: "Ananya Sharma",
+  //     email: "ananya@nit.edu",
+  //     phone: "+91 98765 43210",
+  //     hometown: "Gurgaon",
+  //     bio: "Computer Science student passionate about building products that make a difference. Love traveling, coding, and staying fit!",
+  //     interests: ["Travel", "DSA", "Startup"],
+  //   });
 
   return (
     <div className="min-h-screen bg-background">

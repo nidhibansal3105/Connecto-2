@@ -1,14 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
-const initSocket = require('./socket'); // Socket file import kari
+const initSocket = require("./socket"); // Socket file import kari
 require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
-const postRoutes=require("./routes/postRoutes");
+const postRoutes = require("./routes/postRoutes");
 const userRoutes = require("./routes/userRoutes");
-const messageRoutes=require("./routes/messageRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 const connectionRoutes = require("./routes/connectionRoutes");
-const matchRoutes=require("./routes/matchRoutes");
+const matchRoutes = require("./routes/matchRoutes");
 const app = express();
 
 // Middlewares
@@ -19,17 +19,17 @@ const server = http.createServer(app); // HTTP server banaya
 // Socket initialize karein
 // initSocket(server);
 // Routes setup
-// Ab aapke sare auth routes http://localhost:5000/api/auth/... par milenge
+// Ab aapke sare auth routes https://connecto-2-u3a6.vercel.app/api/auth/... par milenge
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/users",userRoutes);
-app.use("/api/messages",messageRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/messages", messageRoutes);
 app.use("/api/connections", connectionRoutes);
 // Ek basic route testing ke liye
 app.get("/", (req, res) => {
   res.send("Connecto Backend is running! 🚀");
 });
-app.use("/api/match",matchRoutes);
+app.use("/api/match", matchRoutes);
 
 // Port configuration
 const PORT = process.env.PORT || 5000;
@@ -39,15 +39,15 @@ const PORT = process.env.PORT || 5000;
 //   console.log(`Test it here: http://localhost:${PORT}`);
 // });
 // Local testing ke liye port zaroori hai, par Vercel ise khud handle karega
-if (process.env.NODE_ENV !== 'production') {
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
 
-export default app; // 👈 Ye line sabse zaroori hai Vercel ke liye
+module.exports = app; // 👈 Ye line sabse zaroori hai Vercel ke liye
 const expressServer = app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
- console.log(`Test it here: http://localhost:${PORT}`);
+  console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`Test it here: http://localhost:${PORT}`);
 });
 
 // 3. Ab is expressServer ko socket mein pass karo

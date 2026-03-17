@@ -265,7 +265,6 @@ const communityData: Record<string, Community> = {
   },
 };
 
-
 const CommunityPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -309,7 +308,7 @@ const CommunityPage = () => {
         return;
       }
       const response = await axios.get(
-        `http://localhost:5000/api/posts/${id}`,
+        `https://connecto-2-u3a6.vercel.app/api/posts/${id}`,
         {
           headers: { Authorization: token },
         },
@@ -367,7 +366,7 @@ const CommunityPage = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/posts/create",
+        "https://connecto-2-u3a6.vercel.app/api/posts/create",
         { community_id: id, content: newPost },
         { headers: { Authorization: token } },
       );
@@ -391,7 +390,7 @@ const CommunityPage = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5000/api/posts/${postId}/like`,
+        `https://connecto-2-u3a6.vercel.app/api/posts/${postId}/like`,
         {},
         { headers: { Authorization: token } },
       );
@@ -417,7 +416,7 @@ const CommunityPage = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.get(
-        `http://localhost:5000/api/posts/${postId}/comments`,
+        `https://connecto-2-u3a6.vercel.app/api/posts/${postId}/comments`,
         {
           headers: { Authorization: token },
         },
@@ -434,7 +433,7 @@ const CommunityPage = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:5000/api/posts/${postId}/comments`,
+        `https://connecto-2-u3a6.vercel.app/api/posts/${postId}/comments`,
         { content: commentText },
         { headers: { Authorization: token } },
       );
@@ -480,7 +479,9 @@ const CommunityPage = () => {
   useEffect(() => {
     const loadMessages = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/messages/${id}`);
+        const res = await axios.get(
+          `https://connecto-2-u3a6.vercel.app/api/messages/${id}`,
+        );
         setChatMessages(res.data);
       } catch (err) {
         console.error("Failed to load history");
@@ -529,7 +530,7 @@ const CommunityPage = () => {
 
       // Phir emit karte waqt:
       socket.emit("send_message", {
-      msgData
+        msgData,
       });
       setCurrentMsg("");
     }
@@ -862,6 +863,6 @@ const CommunityPage = () => {
       <Footer />
     </div>
   );
-};;
+};
 
 export default CommunityPage;

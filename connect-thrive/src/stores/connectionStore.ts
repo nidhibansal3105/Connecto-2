@@ -44,7 +44,7 @@ interface ConnectionState {
   ) => Promise<boolean>;
 }
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://connecto-2-u3a6.vercel.app/api";
 
 // Helper to get Auth Headers
 const getHeaders = () => ({

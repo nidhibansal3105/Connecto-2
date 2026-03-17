@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 // Message ka structure
 export interface Message {
@@ -13,23 +13,23 @@ export interface Message {
 interface ChatState {
   messages: Message[];
   isLoading: boolean;
-  
+
   // API Actions
   fetchMessages: (buddyId: number) => Promise<void>;
   sendMessage: (buddyId: number, text: string) => Promise<boolean>;
-  
+
   // Real-time Action
   addMessage: (message: Message) => void;
-  
+
   clearMessages: () => void;
 }
 
-const API_BASE = "http://localhost:5000/api/messages";
+const API_BASE = "https://connecto-2-u3a6.vercel.app/api/messages";
 
 // Helper to get Auth Headers
 const getHeaders = () => ({
   "Content-Type": "application/json",
-  "Authorization": `Bearer ${localStorage.getItem("token")}`
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
 });
 
 export const useChatStore = create<ChatState>((set, get) => ({
@@ -82,16 +82,16 @@ export const useChatStore = create<ChatState>((set, get) => ({
   },
 
   // 3. Real-time mein naya message add karna (Socket ke liye)
-addMessage: (message: Message) => {
-  set((state) => {
-    // Agar message already exist karta hai, toh return karo
-    if (state.messages.find((m) => m.id === message.id)) {
-      return state;
-    }
-    // Warna naya message add karo
-    return { messages: [...state.messages, message] };
-  });
-},
+  addMessage: (message: Message) => {
+    set((state) => {
+      // Agar message already exist karta hai, toh return karo
+      if (state.messages.find((m) => m.id === message.id)) {
+        return state;
+      }
+      // Warna naya message add karo
+      return { messages: [...state.messages, message] };
+    });
+  },
 
   // 4. Cleanup
   clearMessages: () => set({ messages: [] }),
