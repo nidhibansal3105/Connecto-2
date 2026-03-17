@@ -38,6 +38,13 @@ const PORT = process.env.PORT || 5000;
 //   console.log(`Server is running on port ${PORT}`);
 //   console.log(`Test it here: http://localhost:${PORT}`);
 // });
+// Local testing ke liye port zaroori hai, par Vercel ise khud handle karega
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+export default app; // 👈 Ye line sabse zaroori hai Vercel ke liye
 const expressServer = app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
  console.log(`Test it here: http://localhost:${PORT}`);
