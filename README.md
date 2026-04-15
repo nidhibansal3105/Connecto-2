@@ -1,148 +1,219 @@
-# 🚀 Connecto – Full Stack Social Platform
+# 🚀 Connecto – Full Stack Social Platform  
 
-Connecto is a full-stack web application that allows users to connect, share profiles, and interact securely.  
+Connecto is a **full-stack web application** that allows users to connect, collaborate, and interact securely through interest-based communities.  
+
 This project is built using **Node.js, Express, MySQL, and a modern frontend stack**.
 
 ---
 
 ## 📌 Table of Contents
 
-- Overview
-- Features
-- Tech Stack
-- Local Setup Instructions
-- Database Schema
-- Environment Variables
-- Run the Project
-- Future Enhancements
+- Overview  
+- Features  
+- Communities  
+- Tech Stack  
+- Local Setup Instructions  
+- Database Schema  
+- Environment Variables  
+- Run the Project  
+- Future Enhancements  
 
 ---
 
-## 🧩 Overview
+## 🧩 Overview  
 
 The objective of this project is to:
 
-- Build a secure user authentication system
-- Store and manage user data efficiently
-- Understand backend–frontend integration
-- Practice real-world full stack development
+- Build a secure user authentication system  
+- Store and manage user data efficiently  
+- Understand backend–frontend integration  
+- Practice real-world full stack development  
+- Enable **community-based collaboration and networking**  
+- Provide **team-building tools for hackathons**  
+- Support **startup idea sharing and collaboration**  
+- Implement **interest-based matchmaking between users**  
+- Provide **real-time communication features**
 
 ---
 
-## ✨ Features
+## 🌐 Communities  
 
-- User Registration & Login
-- Secure Authentication using JWT
-- MySQL Database Integration
-- User Profile Management
-- Clean and Responsive UI
-- RESTful APIs
+Connecto includes **5 major communities** based on the most popular interests among students in our campus:
 
----
+- 💻 **DSA & Coding**  
+- 🚀 **Startup**  
+- ✈️ **Travel**  
+- 🏋️ **Fitness & Gym**  
+- 🧠 **Mental Wellness**
 
-## 🛠️ Tech Stack
-
-### Frontend
-
-- React / Vite
-- HTML5
-- CSS3
-- JavaScript
-
-### Backend
-
-- Node.js
-- Express.js
-- JWT Authentication
-
-### Database
-
-- MySQL
+Each community contains powerful collaboration features.
 
 ---
 
-## 🚀 Local Setup Instructions
+## ✨ Features  
+
+### 🔐 Core Features  
+
+- User Registration & Login  
+- Secure Authentication using JWT  
+- MySQL Database Integration  
+- User Profile Management  
+- Clean and Responsive UI  
+- RESTful APIs  
+
+---
+
+### 💬 Real-Time Communication  
+
+- **Real-time Group Chat** inside each community  
+- Users can send messages instantly  
+- Separate chat rooms for each community  
+- **Personal Chat (DM)** feature available  
+- Users can directly message connected users  
+- If users are not connected, messages go to **Request Section**
+
+---
+
+### 📝 Community Posts Section  
+
+Each community contains a **Posts Section**.
+
+Users can:
+
+- Create posts related to specific communities  
+- Share knowledge and updates  
+- Like and comment on posts  
+- Interact with other community members  
+
+---
+
+### 📚 Resources Section (Community-Specific)
+
+Each community provides **useful resources**.
+
+Example:
+
+**Travel Community**
+
+- Shows **nearby places to visit**
+- Users can:
+  - View location details  
+  - See places directly on **interactive maps**  
+  - Explore destinations without leaving the platform  
+
+Other communities also contain relevant curated resources.
+
+---
+
+### 🏆 Hackathon Team Builder (DSA & Coding Community)
+
+A dedicated feature to help students build teams for hackathons.
+
+Users can:
+
+- Create hackathon rooms  
+- Add:
+  - Hackathon Name  
+  - Description  
+  - Required Skills  
+  - Team Size  
+  - Deadline  
+
+Other users can:
+
+- Browse hackathon rooms  
+- Send **join requests**
+
+Room creators can:
+
+- Accept or reject requests  
+- Manage team members  
+
+This feature helps students **quickly find teammates** and collaborate.
+
+---
+
+### 💡 Idea Hub (Startup Community)
+
+A platform where students can **pitch startup ideas** and build teams.
+
+Users can:
+
+- Create startup ideas  
+- Add:
+  - Idea Title  
+  - Description  
+  - Problem Statement  
+  - Required Skills  
+
+Other users can:
+
+- View idea details  
+- Like ideas  
+- Comment on ideas  
+- Send **join requests**  
+
+To join:
+
+- Users fill a **skill-based application form**
+- Mention:
+  - Skills  
+  - Experience  
+  - Contribution interests  
+
+This helps in **startup collaboration and innovation**.
+
+---
+
+### 🎯 Interest-Based Matchmaking  
+
+Users can personalize their profile using the **Add Interests** tab.
+
+Users can:
+
+- Add interests across different domains  
+- Update interests anytime  
+
+System uses these interests to:
+
+- Match users with **similar interests**  
+- Suggest relevant communities  
+- Suggest people to connect with  
+
+This improves **networking and collaboration opportunities**.
+
+---
+
+## 🛠️ Tech Stack  
+
+### Frontend  
+
+- React / Vite  
+- HTML5  
+- CSS3  
+- JavaScript  
+
+### Backend  
+
+- Node.js  
+- Express.js  
+- JWT Authentication  
+- Socket.io (for real-time communication)
+
+### Database  
+
+- MySQL  
+
+---
+
+## 🚀 Local Setup Instructions  
 
 Follow the steps below to run the project on your local machine.
 
 ---
 
-## 1️⃣ Clone the Repository
+### 1️⃣ Clone the Repository  
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/Connecto.git
 cd Connecto
-```
-
----
-
-## 2️⃣ Database Setup (MySQL)
-
--The database is hosted on Aiven MySQL. You do not need to create a local database or run any SQL scripts, as the schema and data have already been migrated to the cloud.
-
-```
-## 3️⃣ Backend Configuration ⚙️
-
--Navigate to the backend folder:
-```
-
-cd Backend
-
-```
-
-## Install dependencies:
-```
-
-npm install
-
-```
-## Create a .env file inside the Backend folder and add:
-```
-
-PORT=5000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_mysql_password_here
-DB_NAME=connecto_db
-JWT_SECRET=my_super_secret_123
-
-```
-
-## Start the backend server:
-```
-
-node index.js
-
-```
-
-## Backend will run on:
-
-https://connecto-2.onrender.com
-
-## 4️⃣ Frontend Configuration 💻
-
--Navigate to the frontend folder:
-```
-
-cd connect-thrive
-
-- Install dependencies:
-
-npm install
-
--Run the frontend application:
-
-npm run dev
-
-```
-
-## Frontend will run on:
-
--http://localhost:5173
-
-## 🙌 Author
-
-Shruti Jaim=n
-NIT Kurukshetra
-B.Tech CSE | Full Stack Developer
-```
