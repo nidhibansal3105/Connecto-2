@@ -8,6 +8,11 @@ import { Eye, EyeOff, Mail, Lock, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 
+const API_ROOT =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://connecto-2.onrender.com/api";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +28,7 @@ const Login = () => {
     try {
       // 1. Backend ko request bhejna
       const response = await axios.post(
-        "https://connecto-2.onrender.com/api/auth/login",
+        `${API_ROOT}/auth/login`,
         {
           email,
           password,
